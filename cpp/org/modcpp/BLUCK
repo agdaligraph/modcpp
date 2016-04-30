@@ -1,0 +1,14 @@
+cpp_library(
+  name = "modcpp",
+  deps = [
+    "//cpp/org/modcpp/base",
+    "//cpp/org/modcpp/bluckbuild",
+    "//cpp/org/modcpp/hashing",
+    "//cpp/org/modcpp/io",
+    "//cpp/org/modcpp/logging",
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/sets",
+    "//cpp/org/modcpp/sketching",
+    "//cpp/org/modcpp/string",
+  ],
+)

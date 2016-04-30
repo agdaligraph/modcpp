@@ -1,0 +1,67 @@
+cpp_test(
+  name = "StringTest",
+  srcs = [
+    "StringTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "CstringsTest",
+  srcs = [
+    "CstringsTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringBuilderTest",
+  srcs = [
+    "StringBuilderTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "EncodingTest",
+  srcs = [
+    "EncodingTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringBuilderBenchmark",
+  srcs = [
+    "StringBuilderBenchmark.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/base",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringBenchmark",
+  srcs = [
+    "StringBenchmark.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/base",
+    "//cpp/org/modcpp/logging",
+  ]
+)

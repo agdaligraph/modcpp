@@ -1,0 +1,66 @@
+cpp_binary(
+  name = "bluckbuild",
+  srcs = [
+    "bluck.cpp",
+    "BluckBuild.h",
+    "BluckBuild.cpp",
+    "CppExecutor.h",
+    "CppExecutor.cpp",
+    "Target.h",
+  ],
+  deps = [
+    ":Stamper",
+    ":Parser",
+    ":BluckEnvironment",
+    "//cpp/org/modcpp/io:Files",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_library(
+  name = "BluckEnvironment",
+  srcs = [
+    "BluckEnvironment.h",
+    "BluckEnvironment.cpp"
+  ],
+  deps = [
+    "//cpp/org/jsoncpp",
+    "//cpp/org/modcpp/logging:Console"
+  ],
+  visibility = [
+    "//cpp/org/modcpp/bluckbuild",
+  ],
+)
+
+cpp_library(
+  name = "Stamper",
+  srcs = [
+    "Stamper.h",
+    "Stamper.cpp",
+  ],
+  deps = [
+    ":BluckEnvironment",
+    "//cpp/org/modcpp/hashing:Md5Hasher",
+    "//cpp/org/modcpp/logging:Console",
+    "//cpp/org/modcpp/string:Cstrings",
+  ],
+  visibility = [
+    "//cpp/org/modcpp/bluckbuild",
+  ],
+)
+
+cpp_library(
+  name = "Parser",
+  srcs = [
+    "Parser.h",
+    "Parser.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/logging",
+    "//cpp/org/modcpp/string:String",
+    "//cpp/org/modcpp/string:Cstrings"
+  ],
+  visibility = [
+    "//cpp/org/modcpp/bluckbuild",
+  ],
+)

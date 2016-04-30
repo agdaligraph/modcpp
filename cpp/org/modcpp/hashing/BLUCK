@@ -1,0 +1,39 @@
+cpp_library(
+  name = "hashing",
+  deps = [
+    ":KarpRabinHasher",
+    ":Md5Hasher",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)
+
+cpp_library(
+  name = "Md5Hasher",
+  srcs = [
+    "Md5Hasher.h",
+    "Md5Hasher.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string:String",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)
+
+cpp_library(
+  name = "KarpRabinHasher",
+  srcs = [
+    "KarpRabinHasher.h",
+    "KarpRabinHasher.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/string",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)

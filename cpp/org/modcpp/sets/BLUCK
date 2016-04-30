@@ -1,0 +1,36 @@
+cpp_library(
+  name = "sets",
+  srcs = [
+    "Sets.h",
+  ]
+)
+
+cpp_library(
+  name = "IterableSet",
+  srcs = [
+    "IterableSet.h",
+  ],
+  deps = [
+    "//cpp/org/modcpp/base",
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)
+
+cpp_library(
+  name = "LookupSet",
+  srcs = [
+    "LookupSet.h",
+  ],
+  deps = [
+    "//cpp/org/modcpp/base",
+  ]
+)
+
+cpp_library(
+  name = "Table",
+  srcs = [
+    "Table.h"
+  ],
+)

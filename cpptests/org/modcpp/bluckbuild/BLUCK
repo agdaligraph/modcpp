@@ -1,0 +1,29 @@
+cpp_test(
+  name = "BluckEnvironmentTest",
+  srcs = [
+    "BluckEnvironmentTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/bluckbuild:BluckEnvironment",
+  ]
+)
+
+cpp_test(
+  name = "ParserTest",
+  srcs = [
+    "ParserTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/bluckbuild:Parser",
+  ]
+)
+
+cpp_test(
+  name = "StamperTest",
+  srcs = [
+    "StamperTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/bluckbuild:Stamper",
+  ]
+)

@@ -1,0 +1,42 @@
+cpp_test(
+  name = "IterableSetTest",
+  srcs = [
+    "IterableSetTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/sets:IterableSet",
+    "//cpp/org/modcpp/string",
+  ]
+)
+
+cpp_test(
+  name = "LookupSetTest",
+  srcs = [
+    "LookupSetTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/sets",
+    "//cpp/org/modcpp/string",
+  ]
+)
+
+cpp_test(
+  name = "SetsTest",
+  srcs = [
+    "SetsTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/sets",
+  ]
+)
+
+cpp_test(
+  name = "TableTest",
+  srcs = [
+    "TableTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/sets",
+  ]
+)

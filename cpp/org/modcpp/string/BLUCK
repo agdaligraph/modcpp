@@ -1,0 +1,48 @@
+cpp_library(
+  name = "string",
+  srcs = [
+    "Encoding.h",
+    "Encoding.cpp",
+  ],
+  deps = [
+    ":Cstrings",
+    ":String",
+    ":StringBuilder"
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)
+
+cpp_library(
+  name = "String",
+  srcs = [
+    "String.h",
+    "String.cpp",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)
+
+cpp_library(
+  name = "StringBuilder",
+  srcs = [
+    "StringBuilder.h",
+    "StringBuilder.cpp",
+  ],
+  deps = [
+    ":String",
+  ]
+)
+
+cpp_library(
+  name = "Cstrings",
+  srcs = [
+    "Cstrings.h",
+    "Cstrings.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/base",
+  ]
+)

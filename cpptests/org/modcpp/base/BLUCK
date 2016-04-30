@@ -1,0 +1,23 @@
+cpp_test(
+  name = "OptionalTest",
+  srcs = [
+    "OptionalTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string",
+  ]
+)
+
+cpp_test(
+  name = "IterableIteratorTest",
+  srcs = [
+    "IterableIteratorTest.cpp",
+  ],
+)
+
+cpp_test(
+  name = "RangeTest",
+  srcs = [
+    "RangeTest.cpp",
+  ],
+)

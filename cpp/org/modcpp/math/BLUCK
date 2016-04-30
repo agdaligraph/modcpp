@@ -1,0 +1,39 @@
+cpp_library(
+  name = "math",
+  deps = [
+    ":numbers",
+    ":linear"
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)
+
+cpp_library(
+  name = "numbers",
+  srcs = [
+    "numbers.h"
+  ],
+  deps = [
+    "//system/package:libgmp-dev"
+  ],
+  linkopts = [
+    "-lgmpxx -lgmp"
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)
+
+cpp_library(
+  name = "linear"
+  srcs = [
+    "linear.h"
+  ],
+  deps = [
+    ":numbers",
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)

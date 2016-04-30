@@ -1,0 +1,10 @@
+cpp_library(
+  name = "random",
+  srcs = [
+    "HybridRandomStream.h",
+    "HybridRandomStream.cpp",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)

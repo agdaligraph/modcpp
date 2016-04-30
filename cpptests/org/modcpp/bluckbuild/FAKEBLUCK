@@ -1,0 +1,93 @@
+cpp_test(
+  name = "StringBuilderTest",
+  srcs = [
+    "StringBuilderTest.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringTest",
+  srcs = [
+    "StringTest.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+
+cpp_test(
+  name = "EncodingTest",
+  srcs = [
+    "EncodingTest.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringBuilderBenchmark",
+  srcs = [
+    "StringBuilderBenchmark.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/base",
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+cpp_test(
+  name = "StringBenchmark",
+  srcs = [
+    "StringBenchmark.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/base",
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+cpp_library(
+  name = "Parser",
+  srcs = [
+    "Parser.h",
+    "Parser.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/logging",
+  ]
+)
+
+cpp_binary(
+  name = "bluck",
+  srcs = [
+    "bluck.h",
+    "bluck.cpp",
+    "Bluck.h",
+    "Bluck.cpp",
+    "BluckEnvironment.h",
+    "BluckEnvironment.cpp",
+    "CppExecutor.h",
+    "CppExecutor.cpp",
+    "Parser.h",
+    "Parser.cpp",
+    "Target.h",
+    "Target.cpp",
+  ],
+  deps = [
+    "//cpp/com/agdaligraph/common/cstrings",
+    "//cpp/com/agdaligraph/common/logging",
+    "//cpp/com/agdaligraph/common/string",
+    "//cpp/com/agdaligraph/common/files",
+    "//cpp/org/jsoncpp",
+  ]
+)

@@ -1,0 +1,9 @@
+cpp_test(
+  name = "HybridRandomStreamTest",
+  srcs = [
+    "HybridRandomStreamTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/random",
+  ]
+)

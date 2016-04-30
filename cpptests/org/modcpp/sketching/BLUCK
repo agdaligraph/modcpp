@@ -1,0 +1,24 @@
+cpp_test(
+  name = "CountSketchTest",
+  srcs = [
+    "CountSketchTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing:KarpRabinHasher",
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/sketching",
+  ]
+)
+
+cpp_test(
+  name = "SpaceSavingSketchTest",
+  srcs = [
+    "SpaceSavingSketchTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing:KarpRabinHasher",
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/sketching:SpaceSavingSketch",
+  ],
+)

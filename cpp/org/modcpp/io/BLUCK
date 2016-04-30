@@ -1,0 +1,21 @@
+cpp_library(
+  name = "io",
+  deps = [
+    ":Files",
+  ]
+)
+
+cpp_library(
+  name = "Files",
+  srcs = [
+    "Files.h",
+    "Files.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/string:String",
+    "//cpp/org/modcpp/string:StringBuilder",
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)

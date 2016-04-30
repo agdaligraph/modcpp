@@ -1,0 +1,43 @@
+cpp_test(
+  name = "Md5HasherTest",
+  srcs = [
+    "Md5HasherTest.cpp"
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing",
+    "//cpp/org/modcpp/string",
+  ]
+)
+
+cpp_test(
+  name = "KWiseHasherTest",
+  srcs = [
+    "KWiseHasherTest.cpp"
+  ],
+  deps = [
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/hashing",
+    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/logging",
+  ]
+)
+
+cpp_test(
+  name = "KarpRabinHasherTest",
+  srcs = [
+    "KarpRabinHasherTest.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing:KarpRabinHasher",
+  ]
+)
+
+cpp_test(
+  name = "KarpRabinHasherBenchmark",
+  srcs = [
+    "KarpRabinHasherBenchmark.cpp",
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing:KarpRabinHasher",
+  ]
+)

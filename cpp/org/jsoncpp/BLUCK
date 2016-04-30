@@ -1,0 +1,10 @@
+cpp_library(
+  name = "jsoncpp",
+  srcs = [
+    "jsoncpp.h",
+    "jsoncpp.cpp",
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)

@@ -1,0 +1,11 @@
+
+class com::modcpp::sets::Sets {
+ public:
+  template<typename SetT>
+  static inline const SetT &firstNonEmpty(const SetT &first, const SetT &second) {
+    return first.empty() ? second : first;
+  }
+
+ private:
+  Sets();
+}

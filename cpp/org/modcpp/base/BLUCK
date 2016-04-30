@@ -1,0 +1,13 @@
+cpp_library(
+  name = "base",
+  srcs = [
+    "base.h",
+    "range.h",
+    "IteratorRange.h",
+    "IterableIterator.h",
+    "Optional.h",
+  ],
+  visibility = [
+    "PUBLIC",
+  ],
+)

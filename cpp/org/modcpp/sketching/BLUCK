@@ -1,0 +1,23 @@
+cpp_library(
+  name = "SpaceSavingSketch",
+  srcs = [
+    "SpaceSavingSketch.h"
+  ],
+)
+
+cpp_library(
+  name = "sketching",
+  srcs = [
+    "CountSketch.h",
+    "SpaceSavingSketch.h"
+  ],
+  deps = [
+    "//cpp/org/modcpp/hashing:KarpRabinHasher",
+    "//cpp/org/modcpp/random",
+    "//cpp/org/modcpp/sets:Table",
+    "//cpp/org/modcpp/string",
+  ],
+  visibility = [
+    "PUBLIC",
+  ]
+)

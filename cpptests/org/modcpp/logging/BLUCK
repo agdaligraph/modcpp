@@ -1,0 +1,9 @@
+cpp_test(
+  name = "ConsoleTest",
+  srcs = [
+    "ConsoleTest.cpp"
+  ],
+  deps = [
+    "//cpp/org/modcpp/logging:Console",
+  ],
+)
