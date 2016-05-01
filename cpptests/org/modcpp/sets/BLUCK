@@ -1,4 +1,13 @@
 cpp_test(
+  name = "unittests",
+  deps = [
+    ":IterableSetTest",
+    ":LookupSetTest",
+    ":SetsTest"
+  ]
+)
+
+cpp_test(
   name = "IterableSetTest",
   srcs = [
     "IterableSetTest.cpp",

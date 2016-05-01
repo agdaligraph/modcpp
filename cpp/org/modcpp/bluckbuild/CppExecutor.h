@@ -16,9 +16,9 @@ namespace org::modcpp::bluckbuild {
 
    public:
     BluckBuild::Result build(const Target &target, bool isTest,
-        const std::vector<std::string> &depPaths);
-    BluckBuild::Result run(const Target &target, const std::string workingDir = "");
-    BluckBuild::Result test(const Target &target);
+        const std::vector<std::string> &depPaths) const;
+    BluckBuild::Result run(const Target &target, const std::string workingDir = "") const;
+    BluckBuild::Result test(const Target &target) const;
 
    private:
     const BluckEnvironment &environment;

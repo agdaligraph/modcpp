@@ -4,12 +4,12 @@
 #include <unistd.h>
 
 #include "org/modcpp/bluckbuild/BluckEnvironment.h"
-#include "org/modcpp/bluckbuild/Target.h"
 #include "org/modcpp/bluckbuild/Stamper.h"
+#include "org/modcpp/bluckbuild/Target.h"
 
 using org::modcpp::bluckbuild::BluckEnvironment;
-using org::modcpp::bluckbuild::Target;
 using org::modcpp::bluckbuild::Stamper;
+using org::modcpp::bluckbuild::Target;
 
 void test_applyStamp() {
   BluckEnvironment environment;

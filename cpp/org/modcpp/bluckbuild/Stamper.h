@@ -17,6 +17,8 @@ namespace org::modcpp::bluckbuild {
      bool isStampFresh(const Target &) const;
      void applyStamp(const Target &) const;
      String getStamp(const Target &) const;
+     bool checkTestedMark(const Target &) const;
+     void markTested(const Target &) const;
 
    private:
      const BluckEnvironment &environment;

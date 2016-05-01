@@ -31,29 +31,10 @@ int main(int argc, char **argv) {
   BluckBuild::Result result = BluckBuild::Result::Fail;
   if (Cstrings::isEqual("build", argv[1])) {
     result = bluckBuild.buildTarget(path);
-    switch (result) {
-      case BluckBuild::Result::Fresh:
-        Console::info("Target is up to date.");
-        break;
-      case BluckBuild::Result::Success:
-        Console::info("Target succesfully built.");
-        break;
-      case BluckBuild::Result::Fail:
-        Console::error("Build error.");
-        break;
-    }
   } else if (Cstrings::isEqual("run", argv[1])) {
     result = bluckBuild.runTarget(path);
   } else if (Cstrings::isEqual("test", argv[1])) {
     result = bluckBuild.testTarget(path);
-    switch (result) {
-      case BluckBuild::Result::Success:
-        Console::info("Passed.");
-        break;
-      default:
-        Console::error("Failed.");
-        break;
-    }
   } else if (Cstrings::isEqual("clean", argv[1])) {
     result = bluckBuild.cleanTarget(path);
   } else {

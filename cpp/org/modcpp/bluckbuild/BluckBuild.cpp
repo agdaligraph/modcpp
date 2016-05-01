@@ -4,12 +4,12 @@
 #include <vector>
 #include <unordered_set>
 
-#include "org/modcpp/io/Files.h"
 #include "org/modcpp/bluckbuild/BluckEnvironment.h"
 #include "org/modcpp/bluckbuild/CppExecutor.h"
 #include "org/modcpp/bluckbuild/Parser.h"
 #include "org/modcpp/bluckbuild/Stamper.h"
 #include "org/modcpp/bluckbuild/Target.h"
+#include "org/modcpp/io/Files.h"
 #include "org/modcpp/logging/Console.h"
 #include "org/modcpp/string/Cstrings.h"
 
@@ -25,6 +25,9 @@ namespace org::modcpp::bluckbuild {
     environment.readConfigFile();
     Files::ensureDirectory(environment.getBinFolderName().c_str(),
         environment.getBluckRootPath().c_str());
+    failedTests = 0;
+    passedTests = 0;
+    freshTests = 0;
   }
 
   BluckBuild::Result BluckBuild::cleanTarget(const string &path) {
@@ -33,7 +36,21 @@ namespace org::modcpp::bluckbuild {
 
   BluckBuild::Result BluckBuild::buildTarget(const string &path) {
     vector<string> depPaths;
-    return buildTargetRecursive(readTarget(environment.translatePath(path)), false, depPaths);
+    Result buildResult = processTargetRecursive(
+        readTarget(environment.translatePath(path)), false, depPaths);
+
+    switch (buildResult) {
+      case BluckBuild::Result::Fresh:
+        Console::info("Target is up to date.");
+        break;
+      case BluckBuild::Result::Success:
+        Console::info("Target succesfully built.");
+        break;
+      case BluckBuild::Result::Fail:
+        Console::error("Build error.");
+        break;
+    }
+    return buildResult;
   }
 
   BluckBuild::Result BluckBuild::runTarget(const string &path) {
@@ -41,7 +58,7 @@ namespace org::modcpp::bluckbuild {
     assert(target.getArtifact() != Target::Artifact::Library);
 
     vector<string> depPaths;
-    Result buildResult = buildTargetRecursive(target, false, depPaths);
+    Result buildResult = processTargetRecursive(target, false, depPaths);
     if (buildResult == Result::Fail) {
       Console::warning("Build failed. Trying the stale binary.");
     }
@@ -59,23 +76,26 @@ namespace org::modcpp::bluckbuild {
 
   BluckBuild::Result BluckBuild::testTarget(const string &path) {
     Target target = readTarget(environment.translatePath(path));
-    assert(target.getArtifact() == Target::Artifact::Test);
-
-    vector<string> depPaths;
-    Result buildResult = buildTargetRecursive(target, true, depPaths);
-    if (buildResult == Result::Fail) {
+    if (target.getArtifact() != Target::Artifact::Test) {
+      Console::error("Target is not a test target");
       return Result::Fail;
     }
 
-    switch (target.getLanguage()) {
-      case Target::Language::Cpp: {
-        CppExecutor cppExecutor(environment);
-        return cppExecutor.test(target);
-      }
-      default:
-        Console::error("Not supported");
-        return Result::Fail;
+    vector<string> depPaths;
+    Result result = processTargetRecursive(target, true, depPaths);
+    if (result == Result::Fail) {
+      Console::error("Build failed");
     }
+    
+    Console::info("%d fresh", freshTests);
+    Console::info("%d passed", passedTests);
+    if (failedTests != 0) {
+      Console::error("%d failed", failedTests);
+      result = Result::Fail;
+    }
+    Console::info("%d total tests", freshTests + passedTests + failedTests);
+
+    return result;
   }
 
   Target BluckBuild::readTarget(const string &bluckPath) const {
@@ -106,10 +126,13 @@ namespace org::modcpp::bluckbuild {
 
   BluckBuild::Result BluckBuild::buildTargetSelf(const Target &target, bool isTest,
       const vector<string> &depPaths) const {
-    if (target.isExternal()) {
-      // TODO(saglam) Check via dpkg-query -l <packagename> and install if necessary
-      return Result::Success;
+    if (target.getArtifact() == Target::Artifact::Test and target.srcs.empty()) {
+      return Result::Fresh;
     }
+    /*if (target.isExternal()) {
+      PackageExecutor packageExecutor(environment);
+      return packageExecutor.build(target);
+    }*/
     switch (target.getLanguage()) {
       case Target::Language::Cpp: {
         CppExecutor cppExecutor(environment);
@@ -121,7 +144,19 @@ namespace org::modcpp::bluckbuild {
     }
   }
 
-  BluckBuild::Result BluckBuild::buildTargetRecursive(const Target &target, bool isTest,
+  BluckBuild::Result BluckBuild::testTargetSelf(const Target &target) const {
+    switch (target.getLanguage()) {
+      case Target::Language::Cpp: {
+        CppExecutor cppExecutor(environment);
+        return cppExecutor.test(target);
+      }
+      default:
+        Console::error("Not supported");
+        return Result::Fail;
+    }
+  }
+
+  BluckBuild::Result BluckBuild::processTargetRecursive(const Target &target, bool isTest,
       vector<string> &parentDepPaths) {
     string targetPath = target.getBluckPath();
     Files::ensureDirectory(target.package.substr(1).c_str(),
@@ -150,16 +185,22 @@ namespace org::modcpp::bluckbuild {
     unordered_set<string> parentDepPathsSet;
     vector<string> depPaths;
     for (const string &depPath : target.deps) {
-      Result depResult = buildTargetRecursive(readTarget(depPath), isTest, depPaths);
+      Target depTarget = readTarget(depPath);
+      Result depResult = processTargetRecursive(depTarget, isTest, depPaths);
       if (depResult == Result::Fail) {
         return Result::Fail;
-      } else if (depResult > depsResult) {
-        depsResult = depResult;
       }
-      for (const string &depFromChild : depPaths) {
-        if (parentDepPathsSet.find(depFromChild) == parentDepPathsSet.end()) {
-          parentDepPathsSet.insert(depFromChild);
-          parentDepPaths.push_back(depFromChild);
+      // TODO(saglam): Handle target merging more generically
+      if (depTarget.getArtifact() == Target::Artifact::Library) {
+        if (depResult > depsResult) {
+          depsResult = depResult;
+        }      
+
+        for (const string &depFromChild : depPaths) {
+          if (parentDepPathsSet.find(depFromChild) == parentDepPathsSet.end()) {
+            parentDepPathsSet.insert(depFromChild);
+            parentDepPaths.push_back(depFromChild);
+          }
         }
       }
       depPaths.clear();
@@ -177,6 +218,22 @@ namespace org::modcpp::bluckbuild {
       }
       selfResult = Result::Success;
       stamper.applyStamp(target);
+    }
+
+    if (isTest && target.getArtifact() == Target::Artifact::Test
+        and not target.srcs.empty()) {
+      if (stamper.checkTestedMark(target)) {
+        freshTests++;
+      } else {
+        Result testResult = testTargetSelf(target);
+        if (testResult == Result::Fail) {
+          Console::error("Test target %s failed", targetPath.c_str());
+          failedTests++;
+        } else {
+          stamper.markTested(target);
+          passedTests++;
+        }
+      }
     }
 
     parentDepPaths.push_back(targetPath);

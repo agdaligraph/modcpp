@@ -49,7 +49,7 @@ namespace org::modcpp::bluckbuild {
   CppExecutor::CppExecutor(const BluckEnvironment &environment)
       : environment(environment) {}
 
-  BluckBuild::Result CppExecutor::run(const Target &target, const string workingDir) {
+  BluckBuild::Result CppExecutor::run(const Target &target, const string workingDir) const {
     string binaryPath = environment.getBluckRootPath() + environment.getBinFolderName()
         + target.package.substr(1) + "/" + target.name + ".out";
 
@@ -63,13 +63,13 @@ namespace org::modcpp::bluckbuild {
     return std::system(binaryPath.c_str()) ? BluckBuild::Result::Fail : BluckBuild::Result::Success;
   }
 
-  BluckBuild::Result CppExecutor::test(const Target &target) {
+  BluckBuild::Result CppExecutor::test(const Target &target) const {
     string workingDir = environment.getBluckRootPath() + target.package.substr(1);
     return run(target, workingDir);
   }
 
   BluckBuild::Result CppExecutor::build(const Target &target, bool isTest,
-      const vector<string> &dependencies) {
+      const vector<string> &dependencies) const {
     const string targetBinPath = environment.getBinFolderPath() + target.package.substr(1);
     const string targetPackagePath = environment.getBluckRootPath() + target.package.substr(1)
         + "/";
@@ -89,7 +89,7 @@ namespace org::modcpp::bluckbuild {
       if (!Files::ensureDirectory(include.c_str(), targetBinPath.c_str())) {
         Console::error("Cannot create directory %s", include.c_str());
         return BluckBuild::Result::Fail;
-      };
+      }
     }
 
     string objectFiles;

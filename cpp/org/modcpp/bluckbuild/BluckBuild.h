@@ -34,13 +34,17 @@ namespace org::modcpp::bluckbuild {
     Target readTarget(const std::string &bluckPath) const;
     Result buildTargetSelf(const Target &, bool isTest,
         const std::vector<std::string> &) const;
-    Result buildTargetRecursive(const Target &, bool isTest,
+    Result testTargetSelf(const Target &) const;    
+    Result processTargetRecursive(const Target &, bool isTest,
         std::vector<std::string> &);
 
    private:
     std::unordered_set<std::string> parentTargetPaths;
     std::unordered_set<std::string> builtTargetPaths;
     BluckEnvironment environment;
+    int failedTests;
+    int passedTests;
+    int freshTests;
   };
 
 } // namespace

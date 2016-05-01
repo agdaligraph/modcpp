@@ -82,4 +82,12 @@ namespace org::modcpp::bluckbuild {
     return String(buffer) == getStamp(target);
   }
 
+  bool Stamper::checkTestedMark(const Target &target) const {
+    return false;
+  }
+
+  void Stamper::markTested(const Target &target) const {
+    return;
+  }
+
 }

@@ -1,0 +1,10 @@
+cpp_test(
+  name = "unittests",
+  deps = [
+    "//cpptests/org/modcpp/sets:unittests",
+    "//cpptests/org/modcpp/string:unittests",
+  ],
+  visibility = [
+    "//cpptests/",
+  ]
+)

@@ -13,4 +13,4 @@ notifications:
   email: false
 
 before_script: "make local_deploy -C cpp/org/modcpp/bluckbuild"
-script: "./bin/bluck test //cpptests/org/modcpp/string:StringTest"
+script: "./bin/bluck test //cpptests/org/modcpp:unittests"

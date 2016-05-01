@@ -9,13 +9,15 @@ namespace org::modcpp::bluckbuild {
   class Target {
    public:
     enum Type {
-      CppBinary,
+      CppBinary = 0,
       CppLibrary,
       CppTest,
-      JavaBinary,
+      CppOther,
+      JavaBinary = 4,
       JavaLibrary,
       JavaTest,
-      External,
+      JavaOther,
+      External = 11,
     };
 
     enum Artifact {
@@ -40,8 +42,8 @@ namespace org::modcpp::bluckbuild {
 
    public:
     std::string getBluckPath() const { return package + ":" + name; }
-    Artifact getArtifact() const { return static_cast<Artifact> (type % 3); }
-    Language getLanguage() const { return static_cast<Language> (type / 3); }
+    Artifact getArtifact() const { return static_cast<Artifact> (type % 4); }
+    Language getLanguage() const { return static_cast<Language> (type / 4); }
     bool isExternal() const { return type == Type::External; }
   };
 

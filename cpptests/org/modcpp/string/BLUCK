@@ -1,4 +1,16 @@
 cpp_test(
+  name = "unittests",
+  deps = [
+    ":StringTest",
+    ":CstringsTest",
+    ":StringBuilderTest",
+  ],
+  visibility = [
+    "//cpptests/",
+  ]
+)
+
+cpp_test(
   name = "StringTest",
   srcs = [
     "StringTest.cpp",
