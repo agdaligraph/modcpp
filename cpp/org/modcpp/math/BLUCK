@@ -26,7 +26,7 @@ cpp_library(
 )
 
 cpp_library(
-  name = "linear"
+  name = "linear",
   srcs = [
     "linear.h"
   ],

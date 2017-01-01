@@ -27,7 +27,7 @@ cpp_test(
     "CstringsTest.cpp",
   ],
   deps = [
-    "//cpp/org/modcpp/string",
+    "//cpp/org/modcpp/string:Cstrings",
     "//cpp/org/modcpp/logging",
   ]
 )

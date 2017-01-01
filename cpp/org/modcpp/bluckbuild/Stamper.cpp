@@ -77,7 +77,9 @@ namespace org::modcpp::bluckbuild {
     if (!f) {
       return false;
     }
-    fscanf(f, "%s", buffer);
+    if (fscanf(f, "%s", buffer) < 0) {
+      return false;
+    }
     fclose(f);
     return String(buffer) == getStamp(target);
   }

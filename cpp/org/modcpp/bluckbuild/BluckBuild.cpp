@@ -202,7 +202,7 @@ namespace org::modcpp::bluckbuild {
             parentDepPaths.push_back(depFromChild);
           }
         }
-      }
+      } else Console::info("NOT %s", target.name.c_str());
       depPaths.clear();
     }
 
